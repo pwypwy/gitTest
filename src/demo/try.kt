@@ -1,10 +1,13 @@
 package demo
 
+import domain.Text
+
 fun main() {
     Engine.init(100,CreateRoles)
 
     Engine.execute()
     Context.print()
+
 }
 
 object Context{
@@ -54,7 +57,7 @@ object Context{
     }
 
     /**
-     * 存值
+     * 存map
      */
     operator fun set(key: String,value: Map<String,String>) {
         for ((k,v) in value) {
@@ -64,7 +67,7 @@ object Context{
     }
 
     /**
-     *
+     * 打印
      */
     fun print(){
         println(data)
@@ -79,7 +82,7 @@ operator fun String.get(k: String):String {
 }
 
 /**
- * 设定
+ * 设定接口
  */
 interface Setting{
 
@@ -96,6 +99,9 @@ interface Setting{
 
 }
 
+/**
+ * 创建角色
+ */
 object CreateRoles :Setting {
     /**
      * 等级
@@ -123,18 +129,13 @@ object CreateRoles :Setting {
     }
 
     override fun execute() {
-        println("aaaa")
+        //println("aaaa")
     }
 }
 
 /**
- *
+ * 核心引擎
  */
-fun doit(s: Setting) {
-    s.init()
-    s.execute()
-}
-
 object Engine{
 
     private val settingList = mutableListOf<Setting>()
