@@ -1,6 +1,8 @@
 package demo
 
 import domain.Text
+import enum.Demand
+import java.lang.Exception
 
 fun main() {
     Engine.init(100,CreateRoles)
@@ -171,5 +173,70 @@ fun List<Setting>.init(){
 fun List<Setting>.execute(){
     this.forEach {
         it.execute()
+    }
+}
+
+/**
+ * 解决方案集
+ */
+object SolutionSet{
+    private val data = mutableMapOf<Demand,Solution>()
+
+    /**
+     * 获取解决方案
+     */
+    operator fun get(key: Demand):Solution{
+        if(!data.containsKey(key)){
+            throw Exception("找不到解决方案 $key")
+        }
+        return data[key]!!
+    }
+
+    /**
+     * 保存解决方案
+     */
+    operator fun set(key: Demand,value:Solution){
+        if (data.containsKey(key)){
+            throw Exception("解决方案重复")
+        }
+        data[key] = value
+    }
+}
+
+/**
+ * 解决方案
+ */
+interface Solution{
+    fun run()
+}
+
+/**
+ * 需求池
+ */
+object DemandQueue{
+    private val data = mutableListOf<Demand>()
+
+    /**
+     * 输出下一个需求
+     */
+    fun next():Demand{
+        val first= data.first()
+        data.removeAt(0)
+        return first
+    }
+
+    /**
+     * 队首插入
+     */
+    fun toFirst(value: Demand){
+        data.add(0,value)
+    }
+
+    /**
+     * 加入队尾
+     */
+    fun push(value: Demand){
+        Demand.初始化
+        data.add(value)
     }
 }
