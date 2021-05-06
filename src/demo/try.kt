@@ -236,7 +236,7 @@ object DemandQueue{
      * 加入队尾
      */
     fun push(value: Demand){
-        Demand.初始化
+        //Demand.初始化
         data.add(value)
     }
 }
